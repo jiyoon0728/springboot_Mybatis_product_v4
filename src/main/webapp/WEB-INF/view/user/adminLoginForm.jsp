@@ -3,7 +3,7 @@
 <%@ include file="../layout/header.jsp"%>
 
 <div class="container">
-   <form action="/adminlogin" method="post">
+   <form action="/adminLogin" method="post">
       <div class="mb-3 mt-3">
          <input name="userName"  type="text" class="form-control" placeholder="아이디를 입력해주세요" >
       </div>
