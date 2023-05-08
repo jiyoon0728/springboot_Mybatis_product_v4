@@ -21,18 +21,18 @@
 
 	</select>
 
+	<!-- 구매자 로그인 -->
 	<select id="login" resultType="shop.mtcoding.productapp_v4.model.user.User">
-		SELECT * FROM user_tb where user_name=#{userName} AND user_password=#{userPassword} AND role ='USER'
+	SELECT * FROM user where user_name=#{userName} AND user_password=#{userPassword}le = 'user'
 	</select>
 
-	
+	<!-- 관리자 로그인 -->
 	<select id="adminLogin" resultType="shop.mtcoding.productapp_v4.model.user.User">
-		SELECT * FROM user_tb where user_name=#{userName} AND user_password=#{userPassword} AND role = 'ADMIN'
+		SELECT * FROM user where user_name=#{userName} AND user_password=#{userPassword} AND role = 'admin'
 	</select>
 
 	<insert id="insert">
-		INSERT INTO user_tb(user_name, user_password, user_email,role
-		created_at)
+		INSERT INTO user_tb(user_name, user_password, user_email, role, created_at)
 		VALUES(#{userName}, #{userPassword}, #{userEmail}, #{role}, now())
 	</insert>
 
@@ -52,5 +52,6 @@
 	<delete id="deleteById">
 		DELETE FROM user_tb WHERE user_id = #{userId}
 	</delete>
+
 
 </mapper>

@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import shop.mtcoding.productapp_v4.dto.user.AdminLoginDto;
+import shop.mtcoding.productapp_v4.dto.user.LoginDto;
 import shop.mtcoding.productapp_v4.model.user.User;
 import shop.mtcoding.productapp_v4.model.user.UserRepository;
 
@@ -18,10 +19,16 @@ public class UserController {
 
     @Autowired
     private UserRepository userRepository;
+    
+    //관리자 로그인
+    @GetMapping("/adminLoginForm")
+    public String adminLoginForm() {
+        return "user/adminLoginForm";
+    }
 
     @PostMapping("/adminLogin")
     public String adminLogin(AdminLoginDto adminLoginDto) {
-
+  
         User userPS = userRepository.adminLogin(adminLoginDto);
 
         if (userPS != null && userPS.getRole().equals("ADMIN")) {
@@ -46,20 +53,28 @@ public class UserController {
 		return "redirect:/product";
 	}
 
-
-
     @GetMapping("/loginForm")
     public String loginForm() {
         return "user/loginForm";
     }
 
+    // 구매자 로그인
+    @PostMapping("/login")
+    public String login(LoginDto loginDto) {
+        User userPS = userRepository.login(loginDto);
+        if (userPS != null ) {
+            session.setAttribute("principal", userPS);
+            System.out.println(loginDto.getUserName());
+            return "redirect:/";
+        } else {
+
+            System.out.println("user 로그인 실패");
+            return "redirect:/loginForm";
+        }
+    }
+
     @GetMapping("/joinForm")
     public String joinForm() {
         return "user/joinForm";
-    }
-
-    @GetMapping("/adminLoginForm")
-    public String adminLoginForm() {
-        return "user/adminLoginForm";
     }
 }
