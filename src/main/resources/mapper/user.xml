@@ -21,10 +21,19 @@
 
 	</select>
 
+	<select id="login" resultType="shop.mtcoding.productapp_v4.model.user.User">
+		SELECT * FROM user where user_name=#{userName} AND user_password=#{userPassword} AND role ='USER'
+	</select>
+
+	
+	<select id="adminlogin" resultType="shop.mtcoding.productapp_v4.model.user.User">
+		SELECT * FROM user where user_name=#{userName} AND user_password=#{userPassword} AND role = 'ADMIN'
+	</select>
+
 	<insert id="insert">
-		INSERT INTO user_tb(user_name, user_password, user_email,
+		INSERT INTO user_tb(user_name, user_password, user_email,role
 		created_at)
-		VALUES(#{userName}, #{userPassword}, #{userEmail}, now())
+		VALUES(#{userName}, #{userPassword}, #{userEmail}, #{role}, now())
 	</insert>
 
 
