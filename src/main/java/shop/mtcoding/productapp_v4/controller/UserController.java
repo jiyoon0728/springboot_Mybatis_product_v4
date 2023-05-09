@@ -45,7 +45,6 @@ public class UserController {
         return "redirect:/adminLoginForm";
 
     }
-
     
     //로그아웃
 	@GetMapping("/logout")
@@ -61,18 +60,23 @@ public class UserController {
 
     // 구매자 로그인
     @PostMapping("/login")
-    public String login(LoginDto loginDto) {
-        User userPS = userRepository.login(loginDto);
-        if (userPS != null ) {
-            session.setAttribute("principal", userPS);
+	public String login(LoginDto loginDto) {
+        System.out.println("디버그"+loginDto.getUserName());
+        System.out.println("디버그"+loginDto.getUserPassword());
+        System.out.println("디버그"+loginDto.getRole());
+		User userPS = userRepository.login(loginDto);
+        if(userPS != null) {
+			session.setAttribute("principal", userPS);
             System.out.println(loginDto.getUserName());
-            return "redirect:/";
-        } else {
+			if(userPS.getRole().equals("user")) {
+				System.out.println("user 로그인 성공");
+				return "redirect:/";
+			}
+		}
+		System.out.println("user 로그인 실패");
+		return "redirect:/loginForm";
+	}
 
-            System.out.println("user 로그인 실패");
-            return "redirect:/loginForm";
-        }
-    }
 
     @GetMapping("/joinForm")
     public String joinForm() {
