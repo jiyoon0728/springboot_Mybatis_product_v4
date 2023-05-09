@@ -14,9 +14,9 @@
 		<tbody>
 			<c:forEach items="${productList}" var="product">
 				 <tr>
-                        <td><a href="/product/${product.id}">${product.name}</a></td>
-                        <td>${product.price}</td>
-                        <td>${product.qty}</td>
+                       <td><a href="/product/${product.productId}">${product.productName}</a></td>
+                            <td>${product.productPrice}원</td>
+                            <td>${product.productQty}개</td>
                         
                     </tr>
                 </c:forEach>
